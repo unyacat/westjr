@@ -29,7 +29,7 @@ jr = westjr.WestJR()
 
 * 列車走行位置の取得
 
-```
+```Python
 import westjr
 jr = westjr.WestJR()
 
@@ -53,7 +53,7 @@ for i in range(len(trains)):
 
 * 路線一覧の取得
 
-```
+```Python
 lines = jr.lines(area="kinki")
 print(lines[0].name, lines[0].range)
 
@@ -63,7 +63,7 @@ print(lines[0].name, lines[0].range)
 
 * 駅名一覧の取得
 
-```
+```Python
 stations = jr.stations(line="kyoto")
 print(stations[0].name)
 
