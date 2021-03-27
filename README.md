@@ -2,10 +2,10 @@
 JR西日本列車走行位置 非公式API Pythonライブラリ
 
 ## 機能
-* 列車走行位置 (/api/v3/LINE.json)
-* 路線名 (/api/v3/area_AREA_master.json)
-* 駅一覧 (/api/v3/LINE_st.json)
-* 運行情報 (/api/v3/area_AREA_trafficinfo.json)
+* 列車走行位置取得 (/api/v3/LINE.json)
+* 路線名取得 (/api/v3/area_AREA_master.json)
+* 駅一覧取得 (/api/v3/LINE_st.json)
+* 運行情報取得 (/api/v3/area_AREA_trafficinfo.json)
 
 ## 注意
 * 動作を完全には確認していません．
@@ -27,7 +27,7 @@ jr = westjr.WestJR()
 
 ## 例
 
-### 列車走行位置の取得
+* 列車走行位置の取得
 
 ```
 import westjr
@@ -42,16 +42,16 @@ for i in range(len(trains)):
     else:
         print(trains[i].prev, "に停車中")
         
+        
 >>> 5032M 寝台特急 東京 行き
 >>> 兵庫 神戸 間を走行中
-
 >>> 257C 普通 西明石 行き
 >>> 須磨 に停車中
 ```
 
 
 
-### 路線一覧
+* 路線一覧の取得
 
 ```
 lines = jr.lines(area="kinki")
@@ -61,8 +61,7 @@ print(lines[0].name, lines[0].range)
 ```
 
 
-
-### 駅名一覧
+* 駅名一覧の取得
 
 ```
 stations = jr.stations(line="kyoto")
