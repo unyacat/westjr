@@ -13,7 +13,7 @@ JR西日本列車走行位置 非公式API Pythonライブラリ
 ## 導入
 
 ```console
-$ pip install westjr
+$ pip install WestJR
 ```
 
 ## 例
