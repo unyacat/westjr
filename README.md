@@ -5,6 +5,8 @@ JR西日本列車走行位置 非公式API Pythonライブラリ
 * 路線名取得 (/api/v3/area_AREA_master.json)
 * 駅一覧取得 (/api/v3/LINE_st.json)
 * 運行情報取得 (/api/v3/area_AREA_trafficinfo.json)
+* 列車走行位置駅名，列車停車種別の変換
+  
 
 ## Notice
 * 動作を完全には確認していません．

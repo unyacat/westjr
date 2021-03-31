@@ -13,7 +13,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='WestJR',
-    version='0.1.0',
+    version='0.2.0',
     license='Unlicense',
     description='Handling of train operation information of JR West, a railroad company in Japan',
     long_description=long_description,
