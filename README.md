@@ -1,63 +1,85 @@
 # WestJR
 JR西日本列車走行位置 非公式API Pythonライブラリ
 
-## 機能
 * 列車走行位置取得 (/api/v3/LINE.json)
 * 路線名取得 (/api/v3/area_AREA_master.json)
 * 駅一覧取得 (/api/v3/LINE_st.json)
 * 運行情報取得 (/api/v3/area_AREA_trafficinfo.json)
 
-## 注意
+## Notice
 * 動作を完全には確認していません．
 
-## 導入
+## Installation
 
 ```console
 $ pip install WestJR
 ```
 
-## 例
-
-* 列車走行位置の取得
-
-```Python
+## Usage
+```python
 import westjr
 jr = westjr.WestJR()
 
-trains = jr.trains(line="kobesanyo")
+# あらかじめ area や line をセットする
+jr = westjr.WestJR(line="kobesanyo", area="kinki")
+```
 
-for i in range(len(trains)):
-    print(trains[i].no, trains[i].displayType, trains[i].dest_text, "行き")
-    if trains[i].next:
-        print(trains[i].prev, trains[i].next, "間を走行中")
-    else:
-        print(trains[i].prev, "に停車中")
-        
-        
->>> 5032M 寝台特急 東京 行き
->>> 兵庫 神戸 間を走行中
->>> 257C 普通 西明石 行き
->>> 須磨 に停車中
+### Example
+#### 列車走行位置取得 
+```python
+print(jr.get_trains())
+# {'update': '2021-03-31T08:14:34.313Z', 'trains': [{'no': '798T', 'pos': '0414_0415', ...```
+```
+
+#### 駅一覧取得 
+```python
+print(jr.get_stations())
+# {'stations': [{'info': {'name': '新大阪', 'code': '0415', 'stopTrains': [1, 2, 5], 'typeNotice': None, ...
+```
+
+#### 路線一覧取得
+```python
+print(jr.get_lines())
+# {'lines': {'ako': {'name': '赤穂線', 'range': '相生〜播州赤穂', 'st': ...
+```
+#### 運行情報取得
+```Python
+print(jr.get_traffic_info())
+# {'lines': {}, 'express': {}}
+```
+
+#### エリア名一覧表示
+```python
+print(jr.areas)
+# ['hokuriku', 'kinki', 'okayama', 'hiroshima', 'sanin']
+```
+
+
+#### 路線名一覧表示
+```python
+print(jr.lines)
+# ['hokuriku', 'kobesanyo', 'hokurikubiwako', 'kyoto', 'ako', 'kosei', 'kusatsu', 'nara', 'sagano', 'sanin1', 'sanin2', 'osakahigashi', 'takarazuka']
 ```
 
 
 
-* 路線一覧の取得
+#### 駅に停車する種別を id から名称に変換する．
+```python
+station = jr.get_stations(line="kyoto")["stations"][0]
+print(station["info"]["name"])
+print(jr.convert_stopTrains(station["info"]["stopTrains"]))
+# 山科
+# ['新快速', '快速', '特急']
 
-```Python
-lines = jr.lines(area="kinki")
-print(lines[0].name, lines[0].range)
-
->>> 赤穂線 相生〜播州赤穂
 ```
 
 
-* 駅名一覧の取得
-
-```Python
-stations = jr.stations(line="kyoto")
-print(stations[0].name)
-
->>> 山科
+#### 列車走行位置の場所を前駅と次駅の名前に変換する
+```python
+train = jr.get_trains(line="kobesanyo")["trains"]
+tr = train[0]
+prev, next = jr.convert_pos(train=tr)
+print(prev)
+# 塚本
 ```
 

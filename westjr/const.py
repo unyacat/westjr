@@ -74,8 +74,7 @@ lines = [
     "sanin1",
     "sanin2",
     "osakahigashi",
-    "takarazuka",
-
+    "takarazuka"
 ]
 
 # 停車種別対応配列
