@@ -65,7 +65,7 @@ print(jr.lines)
 
 
 
-#### 駅に停車する種別を id から名称に変換する．
+#### 駅に停車する種別を id から名称に変換する
 ```python
 station = jr.get_stations(line="kyoto")["stations"][0]
 print(station["info"]["name"])
