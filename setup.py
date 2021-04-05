@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from setuptools import setup
+from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
@@ -13,7 +13,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='WestJR',
-    version='0.2.0',
+    version='0.2.0.2',
     license='Unlicense',
     description='Handling of train operation information of JR West, a railroad company in Japan',
     long_description=long_description,
@@ -22,5 +22,6 @@ setup(
     author_email='admin@unyacat.net',
     url='https://github.com/unyacat/westjr',
     install_requires=['requests'],
+    packages=find_packages(),
     keywords='westjr'
 )
