@@ -1,5 +1,6 @@
 import json
 import requests
+from requests import RequestException
 from . import const
 
 
@@ -16,6 +17,12 @@ class WestJR(object):
 
         if method == "GET":
             res = requests.get(url=uri)
+            try:
+                res.raise_for_status()
+            except RequestException as e:
+                print(e)
+                raise e
+
             return res.json()
 
     def get_lines(self, area: str = None) -> dict:
