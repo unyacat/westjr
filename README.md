@@ -18,6 +18,8 @@ $ pip install WestJR
 ```
 
 ## Usage
+[Wiki](https://github.com/unyacat/westjr/wiki) に情報があります．
+
 ```python
 import westjr
 jr = westjr.WestJR()
