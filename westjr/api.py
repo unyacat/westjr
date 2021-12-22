@@ -67,16 +67,9 @@ class WestJR(object):
             raise ValueError("Need to set the line name.")
 
         _line = line if line else self.line
-        return self._request(_line)
+        res = self._request(_line)
 
-        # uri = self.uri_suffix + line + ".json"
-        # response = requests.get(uri)
-        #
-        # if response.status_code != 200:
-        #     raise ValueError("Invalid line name.")
-        # json = response.json()
-        #
-        # return json
+        return res
 
     def get_traffic_info(self, area: str = None) -> dict:
         """
