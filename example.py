@@ -35,4 +35,4 @@ train = jr.get_trains(line="kobesanyo")["trains"]
 tr = train[0]
 prev, next = jr.convert_pos(train=tr)
 print(prev)
-# 塚本
+# 例: 塚本
