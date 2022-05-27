@@ -1,4 +1,5 @@
 import westjr
+
 jr = westjr.WestJR(line="kobesanyo", area="kinki")
 
 print(jr.get_trains())
