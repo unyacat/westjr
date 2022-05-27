@@ -1,7 +1,8 @@
 # [/api/v3/area_{AREA}_master.json]
 from __future__ import annotations
 
-from typing import Dict, TypedDict
+from typing import Dict
+from typing_extensions import TypedDict
 
 
 class Dest(TypedDict):
