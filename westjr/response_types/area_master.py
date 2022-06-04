@@ -28,8 +28,8 @@ class TrafficInfo(TypedDict):
     url: str
 
 
-DelayTextItem_From = TypedDict(
-    "DelayTextItem_From",
+DelayTextItemFrom = TypedDict(
+    "DelayTextItemFrom",
     {
         "from": int,
         "display": int,
@@ -37,7 +37,7 @@ DelayTextItem_From = TypedDict(
 )
 
 
-class DelayTextItem_To(TypedDict):
+class DelayTextItemTo(TypedDict):
     to: int
     display: int
 
@@ -61,6 +61,6 @@ Lines = Dict[str, Line]
 class AreaMaster(TypedDict):
     lines: Lines
     trafficInfo: TrafficInfo
-    delayText: list[DelayTextItem_From | DelayTextItem_To]
+    delayText: list[DelayTextItemFrom | DelayTextItemTo]
     noUpdateAlert: NoUpdateAlert
     trainmonitorinfoLines: TrainmonitorinfoLines
