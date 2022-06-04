@@ -9,43 +9,34 @@ class TransferItem(TypedDict):
     name: str
     type: int
     code: str
-    link: str
-    linkCode: str
+    link: str | None
+    linkCode: str | None
 
 
 class Info(TypedDict):
     name: str
     code: str
-    stopTrains: list[int] | str
-    typeNotice: str
-    transfer: list[TransferItem] | str
-    line: str
-    pairDisplay: str
-    lines: str
+    stopTrains: list[int] | None
+    typeNotice: str | None
+    transfer: list[TransferItem] | None
+    line: str | None
+    pairDisplay: str | None
+    lines: str | None
 
 
-class UpsideItem(TypedDict):
+class SideItem(TypedDict):
     type: int
-    side: int | str
-    linkLine: str
-    linkStationCode: str
+    side: int | None
+    linkLine: str | None
+    linkStationCode: str | None
     line: str
-    linkDirection: str
-
-
-class DownsideItem(TypedDict):
-    type: int
-    side: int | str
-    linkLine: str
-    linkStationCode: str
-    line: str
-    linkDirection: str
+    linkDirection: int | None
 
 
 class Design(TypedDict):
-    mark: str
-    upside: list[UpsideItem] | str
-    downside: list[DownsideItem] | str
+    mark: str | None
+    upside: list[SideItem] | None
+    downside: list[SideItem] | None
 
 
 class StationsItem(TypedDict):

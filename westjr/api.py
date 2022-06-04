@@ -113,8 +113,7 @@ class WestJR:
         :return: list[str]
         """
         if stopTrains is not None:
-            res = [STOP_TRAINS[i] for i in stopTrains]
-            return res
+            return [STOP_TRAINS[i] for i in stopTrains]
         else:
             return []
 
