@@ -1,5 +1,10 @@
 # WestJR
 
+![Python Versions](https://img.shields.io/pypi/pyversions/WestJR.svg)
+![PyPI](https://badge.fury.io/py/WestJR.svg)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/unyacat/westjr/master.svg)](https://results.pre-commit.ci/latest/github/unyacat/westjr/master)
+![GitHubActions](https://github.com/unyacat/westjr/workflows/Test/badge.svg)
+
 JR西日本列車走行位置 非公式API Pythonライブラリ
 
 * 列車走行位置取得 (`/api/v3/{LINE}.json`)
@@ -94,3 +99,7 @@ prev, next = jr.convert_pos(train=tr)
 print(prev)
 # 塚本
 ```
+
+## Commit
+
+* develop ブランチにお願いします
