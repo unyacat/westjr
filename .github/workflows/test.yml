@@ -30,9 +30,5 @@ jobs:
           python -m pip install -U pip
           pip install .[dev]
 
-      # delete if you enable pre-commit.ci
-      - name: Lint
-        run: pre-commit run --all-files
-
       - name: Test
         run: pytest -vv
