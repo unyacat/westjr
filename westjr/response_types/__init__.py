@@ -6,9 +6,8 @@ from . import area_master, stations, train_info, train_pos
 from .area_master import AreaMaster
 from .stations import Stations
 from .train_info import TrainInfo
-from .train_pos import TrainPos, TrainsItem
 from .train_monitor_info import TrainMonitorInfo
-
+from .train_pos import TrainPos, TrainsItem
 
 ResponseDict = Union[AreaMaster, Stations, TrainInfo, TrainPos, TrainMonitorInfo]
 
@@ -24,5 +23,5 @@ __all__ = [
     "TrainPos",
     "ResponseDict",
     "TrainsItem",
-    "TrainMonitorInfo"
+    "TrainMonitorInfo",
 ]

@@ -11,9 +11,9 @@ from .response_types import (
     ResponseDict,
     Stations,
     TrainInfo,
+    TrainMonitorInfo,
     TrainPos,
     TrainsItem,
-    TrainMonitorInfo
 )
 
 
