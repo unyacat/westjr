@@ -79,6 +79,15 @@ print(jr.lines)
 # ['hokuriku', 'kobesanyo', 'hokurikubiwako', 'kyoto', 'ako', 'kosei', 'kusatsu', 'nara', 'sagano', 'sanin1', 'sanin2', 'osakahigashi', 'takarazuka']
 ```
 
+#### 混雑状況取得(非対応電車あり)
+
+```python
+print(jr.get_train_monitor_info()["trains"]["3489M"][0]["cars"][0]["congestion"])
+# 26(%)
+print(jr.get_train_monitor_info()["trains"]["3489M"][0]["cars"][0]["temp"])
+# 23(°C)
+```
+
 #### 駅に停車する種別を id から名称に変換する
 
 ```python

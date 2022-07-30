@@ -13,6 +13,7 @@ from .response_types import (
     TrainInfo,
     TrainPos,
     TrainsItem,
+    TrainMonitorInfo
 )
 
 
@@ -156,3 +157,10 @@ class WestJR:
         else:
             raise ValueError(f"invalid direction: {_direction}")
         return prev_st_name, next_st_name
+
+    def get_train_monitor_info(self) -> TrainMonitorInfo:
+        endpoint = "trainmonitorinfo"
+        res = self._request(endpoint=endpoint)
+        if res is None:
+            raise ValueError("Response is empty")
+        return cast(TrainMonitorInfo, res)
