@@ -1,8 +1,6 @@
 # [/api/v3/trainmonitorinfo.json]
 from __future__ import annotations
 
-from typing import Dict, List
-
 from typing_extensions import TypedDict
 
 
