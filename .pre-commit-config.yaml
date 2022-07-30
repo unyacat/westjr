@@ -50,3 +50,5 @@ repos:
     hooks:
       - id: markdownlint
         args: [--disable=MD013]
+ci:
+    autoupdate_branch: 'develop'
