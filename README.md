@@ -100,6 +100,6 @@ print(prev)
 # 塚本
 ```
 
-## Commit
+## Contribution
 
 * develop ブランチにお願いします
