@@ -1,7 +1,7 @@
 # [/api/v3/trainmonitorinfo.json]
 from __future__ import annotations
 
-from typing import List, Type
+from typing import List, Dict
 
 from typing_extensions import TypedDict
 
@@ -11,14 +11,14 @@ class Car(TypedDict):
     status: int
     congestion: int
     temp: int
-    facilities: list[int]
-    types: list[int]
+    facilities: List[int]
+    types: List[int]
 
 
 class Cars(TypedDict):
-    cars: list[Car]
+    cars: List[Car]
 
 
 class TrainMonitorInfo(TypedDict):
     update: str
-    trains: dict[str, list[Cars]]
+    trains: Dict[str, List[Cars]]
