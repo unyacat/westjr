@@ -11,6 +11,7 @@ JR西日本列車走行位置 非公式API Pythonライブラリ
 * 路線名取得 (`/api/v3/area_{AREA}_master.json`)
 * 駅一覧取得 (`/api/v3/{LINE}_st.json`)
 * 運行情報取得 (`/api/v3/area_{AREA}_trafficinfo.json`)
+* 列車環境取得 (`/api/v3/trainmonitorinfo.json`)
 * 列車走行位置駅名，列車停車種別の変換
 
 ## Notice
@@ -77,6 +78,15 @@ print(jr.areas)
 ```python
 print(jr.lines)
 # ['hokuriku', 'kobesanyo', 'hokurikubiwako', 'kyoto', 'ako', 'kosei', 'kusatsu', 'nara', 'sagano', 'sanin1', 'sanin2', 'osakahigashi', 'takarazuka']
+```
+
+#### 列車環境取得
+
+```python
+print(jr.get_train_monitor_info()["trains"]["3489M"][0]["cars"][0]["congestion"])
+# 26(%)
+print(jr.get_train_monitor_info()["trains"]["3489M"][0]["cars"][0]["temp"])
+# 23(°C)
 ```
 
 #### 駅に停車する種別を id から名称に変換する
