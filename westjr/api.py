@@ -7,6 +7,7 @@ from requests import RequestException
 
 from .const import AREAS, LINES, STATIONS, STOP_TRAINS
 from .response_types import (
+    AreaMaintenance,
     AreaMaster,
     ResponseDict,
     Stations,
@@ -91,6 +92,32 @@ class WestJR:
 
         return cast(TrainPos, res)
 
+    def get_maintenance(self, area: str | None = None) -> AreaMaintenance:
+        """
+        メンテナンス予定を取得して返す．大雪などで運休が予定されているときのみ情報が載る．
+        :param area: [必須] 広域エリア名(ex. kinki)
+        :return: dict
+        """
+        _area = area if area else self.area
+        if _area is None:
+            raise ValueError("Need to set the area name.")
+        endpoint = f"area_{_area}_maintenance"
+        res = self._request(endpoint=endpoint)
+        if res is None:
+            raise ValueError("Response is empty")
+        return cast(AreaMaintenance, res)
+
+    def get_train_monitor_info(self) -> TrainMonitorInfo:
+        """
+        列車の環境を取得して返す．
+        :return: dict
+        """
+        endpoint = "trainmonitorinfo"
+        res = self._request(endpoint=endpoint)
+        if res is None:
+            raise ValueError("Response is empty")
+        return cast(TrainMonitorInfo, res)
+
     def get_traffic_info(self, area: str | None = None) -> TrainInfo:
         """
         路線の交通情報を取得して返す．問題が発生しているときのみ情報が載る．
@@ -157,10 +184,3 @@ class WestJR:
         else:
             raise ValueError(f"invalid direction: {_direction}")
         return prev_st_name, next_st_name
-
-    def get_train_monitor_info(self) -> TrainMonitorInfo:
-        endpoint = "trainmonitorinfo"
-        res = self._request(endpoint=endpoint)
-        if res is None:
-            raise ValueError("Response is empty")
-        return cast(TrainMonitorInfo, res)
