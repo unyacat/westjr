@@ -3,7 +3,8 @@ from __future__ import annotations
 from typing import cast
 
 import requests
-from requests import RequestException
+
+from westjr.utils import parse_data_from_typeddict
 
 from .const import AREAS, LINES, STATIONS, STOP_TRAINS
 from .response_types import (
@@ -33,11 +34,10 @@ class WestJR:
             res = requests.get(url=uri)
             try:
                 res.raise_for_status()
-            except RequestException as e:
+            except requests.RequestException as e:
                 print(e)
                 raise e
             res_dict = res.json()
-            # print(f"[{endpoint}, {uri}]\n{res_dict}", file=open(".log", "a"))
             return cast(ResponseDict, res_dict)
         else:
             return None
@@ -58,7 +58,7 @@ class WestJR:
         if res is None:
             raise ValueError("Response is empty.")
 
-        return cast(AreaMaster, res)
+        return parse_data_from_typeddict(AreaMaster, res)
 
     def get_stations(self, line: str | None = None) -> Stations:
         """
@@ -75,7 +75,7 @@ class WestJR:
         if res is None:
             raise ValueError("Response is empty.")
 
-        return cast(Stations, res)
+        return parse_data_from_typeddict(Stations, res)
 
     def get_trains(self, line: str | None = None) -> TrainPos:
         """
@@ -90,7 +90,7 @@ class WestJR:
         if res is None:
             raise ValueError("Response is empty.")
 
-        return cast(TrainPos, res)
+        return parse_data_from_typeddict(TrainPos, res)
 
     def get_maintenance(self, area: str | None = None) -> AreaMaintenance:
         """
@@ -105,18 +105,8 @@ class WestJR:
         res = self._request(endpoint=endpoint)
         if res is None:
             raise ValueError("Response is empty")
-        return cast(AreaMaintenance, res)
 
-    def get_train_monitor_info(self) -> TrainMonitorInfo:
-        """
-        列車の環境を取得して返す．
-        :return: dict
-        """
-        endpoint = "trainmonitorinfo"
-        res = self._request(endpoint=endpoint)
-        if res is None:
-            raise ValueError("Response is empty")
-        return cast(TrainMonitorInfo, res)
+        return parse_data_from_typeddict(AreaMaintenance, res)
 
     def get_traffic_info(self, area: str | None = None) -> TrainInfo:
         """
@@ -132,7 +122,19 @@ class WestJR:
         if res is None:
             raise ValueError("Response is empty.")
 
-        return cast(TrainInfo, res)
+        return parse_data_from_typeddict(TrainInfo, res)
+
+    def get_train_monitor_info(self) -> TrainMonitorInfo:
+        """
+        列車の環境を取得して返す．
+        :return: dict
+        """
+        endpoint = "trainmonitorinfo"
+        res = self._request(endpoint=endpoint)
+        if res is None:
+            raise ValueError("Response is empty")
+
+        return parse_data_from_typeddict(TrainMonitorInfo, res)
 
     def convert_stopTrains(self, stopTrains: list[int] | None = None) -> list[str]:
         """
