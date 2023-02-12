@@ -8,6 +8,7 @@
 JR西日本列車走行位置 非公式API Pythonライブラリ
 
 * 列車走行位置取得 (`/api/v3/{LINE}.json`)
+* メンテナンス予定取得 (`/api/v3/area_{AREA}_maintenance.json`)
 * 路線名取得 (`/api/v3/area_{AREA}_master.json`)
 * 駅一覧取得 (`/api/v3/{LINE}_st.json`)
 * 運行情報取得 (`/api/v3/area_{AREA}_trafficinfo.json`)
@@ -42,14 +43,14 @@ jr = westjr.WestJR(line="kobesanyo", area="kinki")
 
 ```python
 print(jr.get_trains())
-# {'update': '2021-03-31T08:14:34.313Z', 'trains': [{'no': '798T', 'pos': '0414_0415', ...```
+# {'update': '2021-03-31T08:14:34.313Z', 'trains': [{'no': '798T', 'pos': '0414_0415', ...
 ```
 
-#### 駅一覧取得
+#### メンテナンス予定取得
 
 ```python
-print(jr.get_stations())
-# {'stations': [{'info': {'name': '新大阪', 'code': '0415', 'stopTrains': [1, 2, 5], 'typeNotice': None, ...
+print(jr.get_maintenance())
+# {'status': 1, 'notification': {'groupId': 2023012802, 'text': '1月24日から1月31日を, ...
 ```
 
 #### 路線一覧取得
@@ -57,6 +58,13 @@ print(jr.get_stations())
 ```python
 print(jr.get_lines())
 # {'lines': {'ako': {'name': '赤穂線', 'range': '相生〜播州赤穂', 'st': ...
+```
+
+#### 駅一覧取得
+
+```python
+print(jr.get_stations())
+# {'stations': [{'info': {'name': '新大阪', 'code': '0415', 'stopTrains': [1, 2, 5], 'typeNotice': None, ...
 ```
 
 #### 運行情報取得
