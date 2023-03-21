@@ -25,16 +25,16 @@ print(jr.lines)
 
 # 駅に停車する種別を id から名称に変換する．
 # stopTrains_to_realname()
-station = jr.get_stations(line="kyoto")["stations"][0]
-print(station["info"]["name"])
-print(jr.convert_stopTrains(station["info"]["stopTrains"]))
+station = jr.get_stations(line="kyoto").stations[0]
+print(station.info.name)
+print(jr.convert_stopTrains(station.info.stopTrains))
 # 山科
 # ['新快速', '快速', '特急']
 
 
 # 列車走行位置の場所を前駅と次駅の名前に変換する
 # jr.pos_to_realname(train=tr)
-train = jr.get_trains(line="kobesanyo")["trains"]
+train = jr.get_trains(line="kobesanyo").trains
 tr = train[0]
 prev, next = jr.convert_pos(train=tr)
 print(prev)
