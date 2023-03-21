@@ -1,5 +1,6 @@
 # [/api/v3/trainmonitorinfo.json]
 from typing import Dict, List
+
 from pydantic import BaseModel
 
 

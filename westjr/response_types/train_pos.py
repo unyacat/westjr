@@ -1,5 +1,6 @@
 # [/api/v3/{LINE}.json]
 from typing import List
+
 from pydantic import BaseModel
 
 

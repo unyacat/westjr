@@ -18,6 +18,7 @@ class Line(BaseModel):
     index: int
     dest: Dest
 
+
 class TrafficInfo(BaseModel):
     url: str
 
@@ -44,6 +45,7 @@ class TrainmonitorinfoLine(BaseModel):
 
 
 TrainmonitorinfoLines = Dict[str, TrainmonitorinfoLine]
+
 
 class AreaMaster(BaseModel):
     lines: Dict[str, Line]

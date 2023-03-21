@@ -1,8 +1,9 @@
 from __future__ import annotations
+
 from typing import TypeVar
-from pydantic import BaseModel
 
 import requests
+from pydantic import BaseModel
 
 from .const import AREAS, LINES, STATIONS, STOP_TRAINS
 from .response_types import (
@@ -16,6 +17,8 @@ from .response_types import (
 )
 
 _TModel = TypeVar("_TModel", bound=BaseModel)
+
+
 class WestJR:
     def __init__(self, line: str | None = None, area: str | None = None) -> None:
         self.uri_suffix = "https://www.train-guide.westjr.co.jp/api/v3/"
@@ -25,7 +28,11 @@ class WestJR:
         self.lines = LINES
 
     def _request(
-            self, *, endpoint: str, model: type[_TModel], method: str = "GET",
+        self,
+        *,
+        endpoint: str,
+        model: type[_TModel],
+        method: str = "GET",
     ) -> _TModel:
         uri = f"{self.uri_suffix}{endpoint}.json"
 
@@ -78,7 +85,6 @@ class WestJR:
             raise ValueError("Need to set the line name.")
 
         return self._request(endpoint=_line, model=TrainPos)
-
 
     def get_maintenance(self, area: str | None = None) -> AreaMaintenance:
         """
