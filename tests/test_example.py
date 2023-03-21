@@ -4,8 +4,8 @@ jr = westjr.WestJR(line="kobesanyo", area="kinki")
 
 
 def test_get_trains() -> None:
-    """
-    {'update': '2021-03-31T08:14:34.313Z', 'trains': [{'no': '798T', 'pos': '0414_0415', ...
+    """列車走行位置取得
+    >>> TrainPos(update='2023-03-21T16:54:54.612Z', trains=[TrainsItem(no='502C', ...
     """
     res_trains = jr.get_trains()
     assert res_trains.update
@@ -14,7 +14,7 @@ def test_get_trains() -> None:
 
 def test_get_stations() -> None:
     """駅一覧取得
-    >>> {'stations': [{'info': {'name': '新大阪', 'code': '0415', 'stopTrains': [1, 2, 5], 'typeNotice': None, ...
+    >>> Stations(stations=[StationsItem(info=Info(name='新大阪', code='0415', stopTrains=[1, 2, 5], typeNotice=None, ...
     """
     res_stations = jr.get_stations()
     assert len(res_stations.stations) > 0
@@ -22,7 +22,7 @@ def test_get_stations() -> None:
 
 def test_get_lines() -> None:
     """路線名取得
-    >>> {'lines': {'ako': {'name': '赤穂線', 'range': '相生〜播州赤穂', 'st': ...
+    >>> AreaMaster(lines={'ako': Line(name='赤穂線', range='相生〜播州赤穂', relatelines=None, st='...
     """
     res_lines = jr.get_lines()
     assert len(res_lines.lines.keys()) > 0
@@ -30,7 +30,7 @@ def test_get_lines() -> None:
 
 def test_get_traffic_info() -> None:
     """運行情報取得
-    >>> {'lines': {}, 'express': {}}
+    >>> TrainInfo(lines={}, express={})
     """
     res_traffic_info = jr.get_traffic_info()
     assert res_traffic_info.lines is not None
