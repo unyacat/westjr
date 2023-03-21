@@ -1,53 +1,43 @@
 # [/api/v3/area_{AREA}_master.json]
-from __future__ import annotations
+from typing import Dict, List, Optional, Union
 
-from typing import Dict
-
-from typing_extensions import TypedDict
+from pydantic import BaseModel, Field
 
 
-class Dest(TypedDict):
+class Dest(BaseModel):
     upper: str
     lower: str
 
 
-class _Line(TypedDict):
+class Line(BaseModel):
     name: str
     range: str
+    relatelines: Optional[List[str]]
     st: str
     pos: str
     index: int
     dest: Dest
 
-
-class Line(_Line, total=False):
-    relatelines: list[str]
-
-
-class TrafficInfo(TypedDict):
+class TrafficInfo(BaseModel):
     url: str
 
 
-DelayTextItemFrom = TypedDict(
-    "DelayTextItemFrom",
-    {
-        "from": int,
-        "display": int,
-    },
-)
+class DelayTextItemFrom(BaseModel):
+    from_: int = Field(..., alias="from")
+    display: int
 
 
-class DelayTextItemTo(TypedDict):
+class DelayTextItemTo(BaseModel):
     to: int
     display: int
 
 
-class NoUpdateAlert(TypedDict):
+class NoUpdateAlert(BaseModel):
     currentTime: str
     thresholdMinutes: int
 
 
-class TrainmonitorinfoLine(TypedDict):
+class TrainmonitorinfoLine(BaseModel):
     info: str
     currentTime: str
     thresholdSeconds: int
@@ -55,12 +45,9 @@ class TrainmonitorinfoLine(TypedDict):
 
 TrainmonitorinfoLines = Dict[str, TrainmonitorinfoLine]
 
-Lines = Dict[str, Line]
-
-
-class AreaMaster(TypedDict):
-    lines: Lines
+class AreaMaster(BaseModel):
+    lines: Dict[str, Line]
     trafficInfo: TrafficInfo
-    delayText: list[DelayTextItemFrom | DelayTextItemTo]
+    delayText: List[Union[DelayTextItemFrom, DelayTextItemTo]]
     noUpdateAlert: NoUpdateAlert
     trainmonitorinfoLines: TrainmonitorinfoLines

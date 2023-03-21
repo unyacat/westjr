@@ -1,48 +1,47 @@
 # [/api/v3/{LINE}_st.json]
+from typing import Optional, List
 
-from __future__ import annotations
-
-from typing_extensions import TypedDict
+from pydantic import BaseModel
 
 
-class TransferItem(TypedDict):
+class TransferItem(BaseModel):
     name: str
     type: int
     code: str
-    link: str | None
-    linkCode: str | None
+    link: Optional[str]
+    linkCode: Optional[str]
 
 
-class Info(TypedDict):
+class Info(BaseModel):
     name: str
     code: str
-    stopTrains: list[int] | None
-    typeNotice: str | None
-    transfer: list[TransferItem] | None
-    line: str | None
-    pairDisplay: str | None
-    lines: str | None
+    stopTrains: Optional[List[int]]
+    typeNotice: Optional[str]
+    transfer: Optional[List[TransferItem]]
+    line: Optional[str]
+    pairDisplay: Optional[str]
+    lines: Optional[str]
 
 
-class SideItem(TypedDict):
+class SideItem(BaseModel):
     type: int
-    side: int | None
-    linkLine: str | None
-    linkStationCode: str | None
+    side: Optional[int]
+    linkLine: Optional[str]
+    linkStationCode: Optional[str]
     line: str
-    linkDirection: int | None
+    linkDirection: Optional[int]
 
 
-class Design(TypedDict):
-    mark: str | None
-    upside: list[SideItem] | None
-    downside: list[SideItem] | None
+class Design(BaseModel):
+    mark: Optional[str]
+    upside: Optional[List[SideItem]]
+    downside: Optional[List[SideItem]]
 
 
-class StationsItem(TypedDict):
+class StationsItem(BaseModel):
     info: Info
     design: Design
 
 
-class Stations(TypedDict):
-    stations: list[StationsItem]
+class Stations(BaseModel):
+    stations: List[StationsItem]

@@ -1,18 +1,14 @@
 # [/api/v3/area_{AREA}_trafficinfo.json]
-from __future__ import annotations
+from typing import Dict
 
-from typing_extensions import TypedDict
+from pydantic import BaseModel, Field
 
-Section = TypedDict(
-    "Section",
-    {
-        "from": str,
-        "to": str,
-    },
-)
+class Section(BaseModel):
+    from_: str = Field(..., alias="from")
+    to: str
 
 
-class Info_LineItem(TypedDict):
+class Info_LineItem(BaseModel):
     count: int
     section: Section
     status: str
@@ -22,7 +18,7 @@ class Info_LineItem(TypedDict):
     url: str
 
 
-class Info_ExpressItem(TypedDict):
+class Info_ExpressItem(BaseModel):
     count: int
     unique: int
     name: str
@@ -32,6 +28,6 @@ class Info_ExpressItem(TypedDict):
     url: str
 
 
-class TrainInfo(TypedDict):
-    lines: dict[str, Info_LineItem]
-    express: dict[str, Info_ExpressItem]
+class TrainInfo(BaseModel):
+    lines: Dict[str, Info_LineItem]
+    express: Dict[str, Info_ExpressItem]
