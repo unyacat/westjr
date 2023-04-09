@@ -1,16 +1,14 @@
 # [/api/v3/area_{AREA}_maintenance.json]
-from __future__ import annotations
-
-from typing_extensions import TypedDict
+from pydantic import BaseModel
 
 
-class Notification(TypedDict):
+class Notification(BaseModel):
     groupId: int
     text: str
     duration: str
 
 
-class Maintenance(TypedDict):
+class Maintenance(BaseModel):
     title: str
     text: str
     duration: str
@@ -18,7 +16,7 @@ class Maintenance(TypedDict):
     linkUrl: str
 
 
-class AreaMaintenance(TypedDict):
+class AreaMaintenance(BaseModel):
     status: int
     notification: Notification
     maintenance: Maintenance
