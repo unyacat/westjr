@@ -1,22 +1,22 @@
 from __future__ import annotations
 
-from typing import cast
+from typing import TypeVar
 
 import requests
-
-from westjr.utils import parse_data_from_typeddict
+from pydantic import BaseModel
 
 from .const import AREAS, LINES, STATIONS, STOP_TRAINS
 from .response_types import (
     AreaMaintenance,
     AreaMaster,
-    ResponseDict,
     Stations,
     TrainInfo,
     TrainMonitorInfo,
     TrainPos,
     TrainsItem,
 )
+
+_TModel = TypeVar("_TModel", bound=BaseModel)
 
 
 class WestJR:
@@ -27,7 +27,13 @@ class WestJR:
         self.areas = AREAS
         self.lines = LINES
 
-    def _request(self, endpoint: str, method: str = "GET") -> ResponseDict | None:
+    def _request(
+        self,
+        *,
+        endpoint: str,
+        model: type[_TModel],
+        method: str = "GET",
+    ) -> _TModel:
         uri = f"{self.uri_suffix}{endpoint}.json"
 
         if method == "GET":
@@ -37,10 +43,9 @@ class WestJR:
             except requests.RequestException as e:
                 print(e)
                 raise e
-            res_dict = res.json()
-            return cast(ResponseDict, res_dict)
+            return model.parse_obj(res.json())
         else:
-            return None
+            raise NotImplementedError(method)
 
     def get_lines(self, area: str | None = None) -> AreaMaster:
         """
@@ -54,11 +59,7 @@ class WestJR:
             raise ValueError("Need to set the area name.")
         endpoint = f"area_{_area}_master"
 
-        res = self._request(endpoint=endpoint)
-        if res is None:
-            raise ValueError("Response is empty.")
-
-        return parse_data_from_typeddict(AreaMaster, res)
+        return self._request(endpoint=endpoint, model=AreaMaster)
 
     def get_stations(self, line: str | None = None) -> Stations:
         """
@@ -71,11 +72,7 @@ class WestJR:
             raise ValueError("Need to set the line name.")
         endpoint = f"{_line}_st"
 
-        res = self._request(endpoint=endpoint)
-        if res is None:
-            raise ValueError("Response is empty.")
-
-        return parse_data_from_typeddict(Stations, res)
+        return self._request(endpoint=endpoint, model=Stations)
 
     def get_trains(self, line: str | None = None) -> TrainPos:
         """
@@ -86,11 +83,8 @@ class WestJR:
         _line = line if line is not None else self.line
         if _line is None:
             raise ValueError("Need to set the line name.")
-        res = self._request(_line)
-        if res is None:
-            raise ValueError("Response is empty.")
 
-        return parse_data_from_typeddict(TrainPos, res)
+        return self._request(endpoint=_line, model=TrainPos)
 
     def get_maintenance(self, area: str | None = None) -> AreaMaintenance:
         """
@@ -102,11 +96,8 @@ class WestJR:
         if _area is None:
             raise ValueError("Need to set the area name.")
         endpoint = f"area_{_area}_maintenance"
-        res = self._request(endpoint=endpoint)
-        if res is None:
-            raise ValueError("Response is empty")
 
-        return parse_data_from_typeddict(AreaMaintenance, res)
+        return self._request(endpoint=endpoint, model=AreaMaintenance)
 
     def get_traffic_info(self, area: str | None = None) -> TrainInfo:
         """
@@ -118,11 +109,8 @@ class WestJR:
         if _area is None:
             raise ValueError("Need to set the area name.")
         endpoint = f"area_{_area}_trafficinfo"
-        res = self._request(endpoint=endpoint)
-        if res is None:
-            raise ValueError("Response is empty.")
 
-        return parse_data_from_typeddict(TrainInfo, res)
+        return self._request(endpoint=endpoint, model=TrainInfo)
 
     def get_train_monitor_info(self) -> TrainMonitorInfo:
         """
@@ -130,11 +118,8 @@ class WestJR:
         :return: dict
         """
         endpoint = "trainmonitorinfo"
-        res = self._request(endpoint=endpoint)
-        if res is None:
-            raise ValueError("Response is empty")
 
-        return parse_data_from_typeddict(TrainMonitorInfo, res)
+        return self._request(endpoint=endpoint, model=TrainMonitorInfo)
 
     def convert_stopTrains(self, stopTrains: list[int] | None = None) -> list[str]:
         """
@@ -157,7 +142,7 @@ class WestJR:
         :param line: 路線ID
         :return: (前駅名称, 次駅名称)
         """
-        prev_st_id, next_st_id, *_ = train["pos"].split("_")
+        prev_st_id, next_st_id, *_ = train.pos.split("_")
 
         prev_st_name, next_st_name = None, None
 
@@ -168,7 +153,7 @@ class WestJR:
             raise ValueError(f"Invalid line name: {_line}")
 
         _station = STATIONS[_line]
-        _direction = train["direction"]
+        _direction = train.direction
         if _direction == 0:  # 上り
             if next_st_id == "####":
                 prev_st_name = _station.get(prev_st_id)
