@@ -1,16 +1,16 @@
 # [/api/v3/{LINE}.json]
-from __future__ import annotations
+from typing import List
 
-from typing_extensions import TypedDict
+from pydantic import BaseModel
 
 
-class Dest(TypedDict):
+class Dest(BaseModel):
     text: str
     code: str
     line: str
 
 
-class TrainsItem(TypedDict):
+class TrainsItem(BaseModel):
     no: str
     pos: str
     direction: int
@@ -24,6 +24,6 @@ class TrainsItem(TypedDict):
     numberOfCars: int
 
 
-class TrainPos(TypedDict):
+class TrainPos(BaseModel):
     update: str
-    trains: list[TrainsItem]
+    trains: List[TrainsItem]

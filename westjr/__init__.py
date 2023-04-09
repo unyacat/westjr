@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
 from .api import WestJR
 
-__version__ = "0.3.1"
+__version__ = "0.4"
 __all__ = ["WestJR"]

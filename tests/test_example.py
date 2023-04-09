@@ -4,37 +4,37 @@ jr = westjr.WestJR(line="kobesanyo", area="kinki")
 
 
 def test_get_trains() -> None:
+    """列車走行位置取得
+    >>> TrainPos(update='2023-03-21T16:54:54.612Z', trains=[TrainsItem(no='502C', ...
     """
-    {'update': '2021-03-31T08:14:34.313Z', 'trains': [{'no': '798T', 'pos': '0414_0415', ...
-    """
-    trains = jr.get_trains()
-    assert "update" in trains
-    assert "trains" in trains
+    res_trains = jr.get_trains()
+    assert res_trains.update
+    assert res_trains.trains
 
 
 def test_get_stations() -> None:
     """駅一覧取得
-    >>> {'stations': [{'info': {'name': '新大阪', 'code': '0415', 'stopTrains': [1, 2, 5], 'typeNotice': None, ...
+    >>> Stations(stations=[StationsItem(info=Info(name='新大阪', code='0415', stopTrains=[1, 2, 5], typeNotice=None, ...
     """
-    stations = jr.get_stations()
-    assert "stations" in stations
+    res_stations = jr.get_stations()
+    assert len(res_stations.stations) > 0
 
 
 def test_get_lines() -> None:
     """路線名取得
-    >>> {'lines': {'ako': {'name': '赤穂線', 'range': '相生〜播州赤穂', 'st': ...
+    >>> AreaMaster(lines={'ako': Line(name='赤穂線', range='相生〜播州赤穂', relatelines=None, st='...
     """
-    lines = jr.get_lines()
-    assert "lines" in lines
+    res_lines = jr.get_lines()
+    assert len(res_lines.lines.keys()) > 0
 
 
 def test_get_traffic_info() -> None:
     """運行情報取得
-    >>> {'lines': {}, 'express': {}}
+    >>> TrainInfo(lines={}, express={})
     """
-    traffic_info = jr.get_traffic_info()
-    assert "lines" in traffic_info
-    assert "express" in traffic_info
+    res_traffic_info = jr.get_traffic_info()
+    assert res_traffic_info.lines is not None
+    assert res_traffic_info.express is not None
 
 
 def test_get_const_areas() -> None:
@@ -59,16 +59,16 @@ def test_convert_stopTrains() -> None:
     JR京都線最初の始発駅を取得
     駅名と停車する列車種を抽出
     """
-    station = jr.get_stations(line="kyoto")["stations"][0]
-    assert station["info"]["name"] == "山科"
+    station = jr.get_stations(line="kyoto").stations[0]
+    assert station.info.name == "山科"
 
-    stopTrain_types = jr.convert_stopTrains(station["info"]["stopTrains"])
+    stopTrain_types = jr.convert_stopTrains(station.info.stopTrains)
     assert stopTrain_types == ["新快速", "快速", "特急"]
 
 
 def test_convert_pos() -> None:
     """列車走行位置の場所を前駅と次駅の名前に変換"""
-    train = jr.get_trains(line="kobesanyo")["trains"][0]
+    train = jr.get_trains(line="kobesanyo").trains[0]
     prev, next = jr.convert_pos(train=train)
     assert prev is None or type(prev) is str
     assert next is None or type(next) is str
