@@ -37,15 +37,14 @@ class WestJR:
         uri = f"{self.uri_suffix}{endpoint}.json"
 
         if method == "GET":
-            res = requests.get(url=uri)
+            res = requests.get(url=uri)  # noqa: S113
             try:
                 res.raise_for_status()
             except requests.RequestException as e:
-                print(e)
-                raise e
-            return model.parse_obj(res.json())
-        else:
-            raise NotImplementedError(method)
+                print(e)  # noqa: T201
+                raise
+            return model.model_validate(res.json())
+        raise NotImplementedError(method)
 
     def get_lines(self, area: str | None = None) -> AreaMaster:
         """
@@ -56,7 +55,8 @@ class WestJR:
         """
         _area = area if area else self.area
         if _area is None:
-            raise ValueError("Need to set the area name.")
+            msg = "Need to set the area name."
+            raise ValueError(msg)
         endpoint = f"area_{_area}_master"
 
         return self._request(endpoint=endpoint, model=AreaMaster)
@@ -69,7 +69,8 @@ class WestJR:
         """
         _line = line if line is not None else self.line
         if _line is None:
-            raise ValueError("Need to set the line name.")
+            msg = "Need to set the line name."
+            raise ValueError(msg)
         endpoint = f"{_line}_st"
 
         return self._request(endpoint=endpoint, model=Stations)
@@ -82,7 +83,8 @@ class WestJR:
         """
         _line = line if line is not None else self.line
         if _line is None:
-            raise ValueError("Need to set the line name.")
+            msg = "Need to set the line name."
+            raise ValueError(msg)
 
         return self._request(endpoint=_line, model=TrainPos)
 
@@ -94,7 +96,8 @@ class WestJR:
         """
         _area = area if area else self.area
         if _area is None:
-            raise ValueError("Need to set the area name.")
+            msg = "Need to set the area name."
+            raise ValueError(msg)
         endpoint = f"area_{_area}_maintenance"
 
         return self._request(endpoint=endpoint, model=AreaMaintenance)
@@ -107,7 +110,8 @@ class WestJR:
         """
         _area = area if area else self.area
         if _area is None:
-            raise ValueError("Need to set the area name.")
+            msg = "Need to set the area name."
+            raise ValueError(msg)
         endpoint = f"area_{_area}_trafficinfo"
 
         return self._request(endpoint=endpoint, model=TrainInfo)
@@ -129,12 +133,9 @@ class WestJR:
         """
         if stopTrains is not None:
             return [STOP_TRAINS[i] for i in stopTrains]
-        else:
-            return []
+        return []
 
-    def convert_pos(
-        self, train: TrainsItem, line: str | None = None
-    ) -> tuple[str | None, str | None]:
+    def convert_pos(self, train: TrainsItem, line: str | None = None) -> tuple[str | None, str | None]:
         """
         ID_ID を (前駅名称, 次駅名称) に変換する．
         停車中の場合 prev_st_name に駅名が入り，next_st_name は None となる．
@@ -148,9 +149,11 @@ class WestJR:
 
         _line = line if line is not None else self.line
         if _line is None:
-            raise ValueError("Need to set the line name.")
+            msg = "Need to set the line name."
+            raise ValueError(msg)
         if _line not in STATIONS:
-            raise ValueError(f"Invalid line name: {_line}")
+            msg = f"Invalid line name: {_line}"
+            raise ValueError(msg)
 
         _station = STATIONS[_line]
         _direction = train.direction
@@ -164,10 +167,8 @@ class WestJR:
 
         elif _direction == 1:  # 下り
             prev_st_name = _station.get(prev_st_id)
-            if next_st_id == "####":
-                next_st_name = None
-            else:
-                next_st_name = _station.get(next_st_id)
+            next_st_name = None if next_st_id == "####" else _station.get(next_st_id)
         else:
-            raise ValueError(f"invalid direction: {_direction}")
+            msg = f"invalid direction: {_direction}"
+            raise ValueError(msg)
         return prev_st_name, next_st_name
