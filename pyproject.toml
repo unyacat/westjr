@@ -68,9 +68,6 @@ max-complexity = 10
   "S101", # Use of assert detected
 ]
 
-[tool.isort]
-profile = "black"
-
 [tool.mypy]
 pretty = true
 python_version = "3.9"
