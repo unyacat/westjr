@@ -128,3 +128,6 @@ print(prev)
 ## Contribution
 
 * develop ブランチにお願いします
+* インストールしていなければ [poetry](https://python-poetry.org/docs/master/) をインストールしてください
+* 初回は `poetry install && poetry run pre-commit install` を実行することで `poetry` と `pre-commit` のセットアップが行えます
+* `poetry shell` を実行すると仮想環境で開発することができます
