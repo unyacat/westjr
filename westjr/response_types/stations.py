@@ -28,7 +28,7 @@ class SideItem(BaseModel):
     side: Optional[int]
     linkLine: Optional[str]
     linkStationCode: Optional[str]
-    line: str
+    line: Optional[str]
     linkDirection: Optional[int]
 
 
