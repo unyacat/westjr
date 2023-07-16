@@ -27,7 +27,7 @@ python = ">=3.7,<4"
 requests = "^2.31.0"
 types-requests = "^2.31.0"
 typing-extensions = "^4.7.1"
-pydantic = {git = "https://github.com/pydantic/pydantic", rev = "47c5c63"}
+pydantic = "^2.0.3"
 
 [tool.poetry.group.dev.dependencies]
 mypy = ">=0.991,<1.5"
