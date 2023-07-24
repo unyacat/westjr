@@ -1,12 +1,12 @@
 # [/api/v3/area_{AREA}_trafficinfo.json]
-from typing import Dict
+from typing import Dict, Optional
 
 from pydantic import BaseModel, Field
 
 
 class Section(BaseModel):
     from_: str = Field(..., alias="from")
-    to: str
+    to: Optional[str] = None
 
 
 class Info_LineItem(BaseModel):
