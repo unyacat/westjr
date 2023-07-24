@@ -47,7 +47,8 @@ def test_get_const_areas() -> None:
 
 def test_get_const_lines() -> None:
     """路線名一覧
-    >>> ['hokuriku', 'kobesanyo', 'hokurikubiwako', 'kyoto', 'ako','kosei', 'kusatsu', 'nara', 'sagano', 'sanin1', 'sanin2', 'osakahigashi', 'takarazuka']
+    >>> ['hokuriku', 'kobesanyo', 'hokurikubiwako', 'kyoto', 'ako','kosei',
+         'kusatsu', 'nara', 'sagano', 'sanin1', 'sanin2', 'osakahigashi', 'takarazuka']
     """
     lines = jr.lines
     assert type(lines) is tuple
@@ -69,6 +70,6 @@ def test_convert_stopTrains() -> None:
 def test_convert_pos() -> None:
     """列車走行位置の場所を前駅と次駅の名前に変換"""
     train = jr.get_trains(line="kobesanyo").trains[0]
-    prev, next = jr.convert_pos(train=train)
+    prev, next_ = jr.convert_pos(train=train)
     assert prev is None or type(prev) is str
-    assert next is None or type(next) is str
+    assert next_ is None or type(next_) is str

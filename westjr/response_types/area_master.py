@@ -12,7 +12,7 @@ class Dest(BaseModel):
 class Line(BaseModel):
     name: str
     range: str
-    relatelines: Optional[List[str]]
+    relatelines: Optional[List[str]] = None
     st: str
     pos: str
     index: int

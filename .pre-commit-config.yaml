@@ -8,6 +8,7 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-merge-conflict
       - id: check-symlinks
+      - id: check-toml
       - id: check-yaml
       - id: debug-statements
       - id: destroyed-symlinks
@@ -17,39 +18,32 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
         files: \.(py|sh|rst|yml|yaml)$
-  - repo: https://github.com/asottile/setup-cfg-fmt
-    rev: v2.2.0
+  - repo: https://github.com/tox-dev/pyproject-fmt
+    rev: 0.13.0
     hooks:
-      - id: setup-cfg-fmt
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.4.0
-    hooks:
-      - id: pyupgrade
+      - id: pyproject-fmt
   - repo: https://github.com/psf/black
     rev: 23.3.0
     hooks:
       - id: black
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.0.277
     hooks:
-      - id: isort
-  - repo: https://github.com/PyCQA/flake8
-    rev: 6.0.0
-    hooks:
-      - id: flake8
+      - id: ruff
+        args: [--fix]
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.3.0
     hooks:
       - id: mypy
         additional_dependencies:
-          - pydantic
+          - pydantic~=2.0
           - types-requests
         files: ^westjr/
         args: [--strict]
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.34.0
+    rev: v0.35.0
     hooks:
-      - id: markdownlint
+      - id: markdownlint-fix
         args: [--disable=MD013]
 ci:
     autoupdate_branch: 'develop'

@@ -76,8 +76,8 @@ class LINE_REALNAMES(Enum):
     hanwa = "阪和線"
     kansaiairport = "関西空港線"
     kansai = "関西線"
-    wakayama2 = "和歌山線"
     wakayama1 = "和歌山線"
+    wakayama2 = "和歌山線"  # noqa: PIE796
     manyomahoroba = "万葉まほろば線"
     kinokuni = "きのくに線"
     imbi1 = "因美線"
