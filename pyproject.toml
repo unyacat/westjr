@@ -7,7 +7,7 @@ requires = [
 [tool]
 [tool.poetry]
 name = "WestJR"
-version = "2.4.0"
+version = "0.4.1"
 description = "Handling of train operation information of JR West, a railroad company in Japan"
 readme = "README.md"
 repository = "https://github.com/unyacat/westjr"
