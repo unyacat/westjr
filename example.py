@@ -26,7 +26,8 @@ print(jr.areas)
 
 # 路線名一覧
 print(jr.lines)
-# ['hokuriku', 'kobesanyo', 'hokurikubiwako', 'kyoto', 'ako', 'kosei', 'kusatsu', 'nara', 'sagano', 'sanin1', 'sanin2', 'osakahigashi', 'takarazuka']
+# ['hokuriku', 'kobesanyo', 'hokurikubiwako', 'kyoto', 'ako', 'kosei',
+#  'kusatsu', 'nara', 'sagano', 'sanin1', 'sanin2', 'osakahigashi', 'takarazuka']
 
 
 # 駅に停車する種別を id から名称に変換する．
@@ -42,6 +43,6 @@ print(jr.convert_stopTrains(station.info.stopTrains))
 # jr.pos_to_realname(train=tr)
 train = jr.get_trains(line="kobesanyo").trains
 tr = train[0]
-prev, next = jr.convert_pos(train=tr)
+prev, _next = jr.convert_pos(train=tr)
 print(prev)
 # 例: 塚本
