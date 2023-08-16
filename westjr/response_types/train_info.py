@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 
 
 class Section(BaseModel):
-    from_: str = Field(..., alias="from")
+    from_: Optional[str] = Field(..., alias="from")
     to: Optional[str] = None
 
 
