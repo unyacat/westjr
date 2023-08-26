@@ -71,5 +71,5 @@ def test_convert_pos() -> None:
     """列車走行位置の場所を前駅と次駅の名前に変換"""
     train = jr.get_trains(line="kobesanyo").trains[0]
     prev, next_ = jr.convert_pos(train=train)
-    assert prev is None or type(prev) is str
-    assert next_ is None or type(next_) is str
+    assert prev is None or isinstance(prev, str)
+    assert next_ is None or isinstance(next_, str)
