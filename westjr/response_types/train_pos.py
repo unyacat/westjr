@@ -1,4 +1,6 @@
 # [/api/v3/{LINE}.json]
+from __future__ import annotations
+
 from typing import List
 
 from pydantic import BaseModel

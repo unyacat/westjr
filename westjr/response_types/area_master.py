@@ -1,4 +1,6 @@
 # [/api/v3/area_{AREA}_master.json]
+from __future__ import annotations
+
 from typing import Dict, List, Optional, Union
 
 from pydantic import BaseModel, Field
