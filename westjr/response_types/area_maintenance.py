@@ -1,4 +1,6 @@
 # [/api/v3/area_{AREA}_maintenance.json]
+from __future__ import annotations
+
 from pydantic import BaseModel
 
 
