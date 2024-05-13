@@ -4,14 +4,15 @@ requires = [
   "poetry-core",
 ]
 
-[tool]
 [tool.poetry]
 name = "WestJR"
 version = "0.4.2"
 description = "Handling of train operation information of JR West, a railroad company in Japan"
 readme = "README.md"
 repository = "https://github.com/unyacat/westjr"
-authors = ["unyacat <admin@unyacat.net>"]
+authors = [
+  "unyacat <admin@unyacat.net>",
+]
 license = "Unlicense"
 classifiers = [
   "Programming Language :: Python",
@@ -19,8 +20,12 @@ classifiers = [
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: Implementation :: CPython",
 ]
-packages = [{include = "westjr"}]
-keywords = ["westjr"]
+packages = [
+  { include = "westjr" },
+]
+keywords = [
+  "westjr",
+]
 
 [tool.poetry.dependencies]
 python = ">=3.7,<4"
@@ -36,18 +41,25 @@ pytest = "^7.2.2"
 
 [tool.black]
 line-length = 120
-target-version = ['py39']
+target-version = [
+  'py39',
+]
 
 [tool.ruff]
-select = ["ALL"]
-ignore = [
-  "A003",  # Class attribute `{name}` is shadowing a Python builtin
-  "ANN",  # flake8-annotations
-  "D",  # pydocstring
-  "ERA001",  # Found commented-out code
-  "N",  # pep8-naming
+select = [
+  "ALL",
 ]
-allowed-confusables = ["，", "．"]
+ignore = [
+  "A003",   # Class attribute `{name}` is shadowing a Python builtin
+  "ANN",    # flake8-annotations
+  "D",      # pydocstring
+  "ERA001", # Found commented-out code
+  "N",      # pep8-naming
+]
+allowed-confusables = [
+  "，",
+  "．",
+]
 line-length = 120
 
 [tool.ruff.mccabe]
@@ -55,17 +67,17 @@ max-complexity = 10
 
 [tool.ruff.per-file-ignores]
 "westjr/response_types/*.py" = [
-  "N815",   # Variable `camelCase` in class scope should not be mixedCase
-  "UP006",  # Use `dict` / `list` instead of `dict` / `List` for type annotation
-  "UP007",  # Use `X | Y` for type annotations
-  "UP035",  # `typing.Dict` / `typing.List` is deprecated, use `dict` / `list` instead
+  "N815",  # Variable `camelCase` in class scope should not be mixedCase
+  "UP006", # Use `dict` / `list` instead of `dict` / `List` for type annotation
+  "UP007", # Use `X | Y` for type annotations
+  "UP035", # `typing.Dict` / `typing.List` is deprecated, use `dict` / `list` instead
 ]
 "example.py" = [
-  "T201",  # `print` found
+  "T201", # `print` found
 ]
 "tests/test_*.py" = [
-  "INP001",  # File tests/test_*.py is part of an implicit namespace package. Add an __init__.py.
-  "S101", # Use of assert detected
+  "INP001", # File tests/test_*.py is part of an implicit namespace package. Add an __init__.py.
+  "S101",   # Use of assert detected
 ]
 
 [tool.mypy]
@@ -74,8 +86,10 @@ python_version = "3.9"
 show_error_codes = true
 strict = true
 plugins = [
-  "pydantic.mypy"
+  "pydantic.mypy",
 ]
+
+[tool]
 
 [tool.pydantic-mypy]
 init_forbid_extra = true
