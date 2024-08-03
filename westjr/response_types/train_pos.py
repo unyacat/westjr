@@ -22,9 +22,9 @@ class TrainsItem(BaseModel):
     dest: Union[Dest, str]
     via: Optional[str] = None
     delayMinutes: int
+    aSeatInfo: Optional[str] = None
     typeChange: Optional[str] = None
     numberOfCars: Optional[int] = None
-
 
 class TrainPos(BaseModel):
     update: str
