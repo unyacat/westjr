@@ -15,9 +15,11 @@ class TransferItem(BaseModel):
     note: Optional[str] = None
     substitute: Optional[bool] = False
 
+
 class PairDisplayItem(BaseModel):
     code: str
     position: int
+
 
 class Info(BaseModel):
     name: str
@@ -33,6 +35,7 @@ class Info(BaseModel):
     notDisplayType: Optional[int] = None
     notDisplayNotices: Optional[List[str]] = None
     end: Optional[bool] = False
+
 
 class SideItem(BaseModel):
     type: int

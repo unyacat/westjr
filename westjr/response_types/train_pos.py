@@ -26,6 +26,7 @@ class TrainsItem(BaseModel):
     typeChange: Optional[str] = None
     numberOfCars: Optional[int] = None
 
+
 class TrainPos(BaseModel):
     update: str
     trains: List[TrainsItem]
