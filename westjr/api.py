@@ -49,9 +49,9 @@ class WestJR:
     def get_lines(self, area: str | None = None) -> AreaMaster:
         """
         広域エリアに属する路線一覧を取得して返します。
-        
+
         エンドポイント例: https://www.train-guide.westjr.co.jp/api/v3/area_kinki_master.json
-        
+
         :param AREAS area: [必須] 広域エリア名 (例: kinki)
         :return AreaMaster:
         """
@@ -66,7 +66,7 @@ class WestJR:
     def get_stations(self, line: str | None = None) -> Stations:
         """
         路線に存在している駅名一覧を取得して返します。
-        
+
         :param line LINES: [必須] 路線名 (例: kobesanyo)
         :return Stations:
         """
@@ -83,7 +83,7 @@ class WestJR:
         指定路線の列車走行位置を取得して返します。
         列車オブジェクトが TrainPos.trains に含まれます。
         エンドポイント例: https://www.train-guide.westjr.co.jp/api/v3/kobesanyo.json
-        
+
         :param LINES line: [必須] 路線名 (例: kobesanyo)
         :return TrainPos:
         """
@@ -97,13 +97,13 @@ class WestJR:
     def get_maintenance(self, area: str | None = None) -> AreaMaintenance:
         """
         メンテナンス予定を取得して返します。
-        
+
         台風や大雪など、運休が予定されているときのみ情報が載ります。
-        
+
         エンドポイント例: https://www.train-guide.westjr.co.jp/api/v3/area_kinki_maintenance.json
-        
+
         :param AREAS area: [必須] 広域エリア名 (例: kinki)
-        :return AreaMaintenance: 
+        :return AreaMaintenance:
         """
         _area = area if area else self.area
         if _area is None:
@@ -116,11 +116,11 @@ class WestJR:
     def get_traffic_info(self, area: str | None = None) -> TrainInfo:
         """
         路線の交通情報を取得します。
-        
+
         運行に問題が発生しているときのみ情報が得られます。
-        
+
         エンドポイント例: https://www.train-guide.westjr.co.jp/api/v3/area_kinki_trafficinfo.json
-        
+
         :param AREAS area: [必須] 広域エリア名 (例: kinki)
         :return TrafficInfo:
         """
@@ -135,9 +135,9 @@ class WestJR:
     def get_train_monitor_info(self) -> TrainMonitorInfo:
         """
         列車の環境(気温や混雑度など)を取得します。
-        
+
         エンドポイント例: https://www.train-guide.westjr.co.jp/api/v3/trainmonitorinfo.json
-        
+
         :return TrainMonitorInfo:
         """
         endpoint = "trainmonitorinfo"
@@ -147,7 +147,7 @@ class WestJR:
     def convert_stopTrains(self, stopTrains: list[int] | None = None) -> list[str]:
         """
         駅一覧にある停車種別ID(int, 0~10)の配列を実際の停車種別名の配列に変換します。
-        
+
         :param Stations.stations.info.stopTrains stopTrains: [必須] 停車駅に含まれる stopTrains
         :return list[str]: 停車種別名の配列
         """
