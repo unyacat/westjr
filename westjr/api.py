@@ -48,10 +48,12 @@ class WestJR:
 
     def get_lines(self, area: str | None = None) -> AreaMaster:
         """
-        広域エリアに属する路線一覧を取得して返す．
-        該当API例: https://www.train-guide.westjr.co.jp/api/v3/area_kinki_master.json
-        :param area: [必須] 広域エリア名(ex. kinki)
-        :return: dict
+        広域エリアに属する路線一覧を取得して返します。
+
+        エンドポイント例: https://www.train-guide.westjr.co.jp/api/v3/area_kinki_master.json
+
+        :param AREAS area: [必須] 広域エリア名 (例: kinki)
+        :return AreaMaster:
         """
         _area = area if area else self.area
         if _area is None:
@@ -63,9 +65,10 @@ class WestJR:
 
     def get_stations(self, line: str | None = None) -> Stations:
         """
-        路線に所属している駅名一覧を取得して返す．
-        :param line: [必須] 路線名(ex. kobesanyo)
-        :return: dict
+        路線に存在している駅名一覧を取得して返します。
+
+        :param line LINES: [必須] 路線名 (例: kobesanyo)
+        :return Stations:
         """
         _line = line if line is not None else self.line
         if _line is None:
@@ -77,9 +80,12 @@ class WestJR:
 
     def get_trains(self, line: str | None = None) -> TrainPos:
         """
-        列車走行位置を取得して返す．
-        :param line: [必須] 路線名(ex. kobesanyo)
-        :return: dict
+        指定路線の列車走行位置を取得して返します。
+        列車オブジェクトが TrainPos.trains に含まれます。
+        エンドポイント例: https://www.train-guide.westjr.co.jp/api/v3/kobesanyo.json
+
+        :param LINES line: [必須] 路線名 (例: kobesanyo)
+        :return TrainPos:
         """
         _line = line if line is not None else self.line
         if _line is None:
@@ -90,9 +96,14 @@ class WestJR:
 
     def get_maintenance(self, area: str | None = None) -> AreaMaintenance:
         """
-        メンテナンス予定を取得して返す．大雪などで運休が予定されているときのみ情報が載る．
-        :param area: [必須] 広域エリア名(ex. kinki)
-        :return: dict
+        メンテナンス予定を取得して返します。
+
+        台風や大雪など、運休が予定されているときのみ情報が載ります。
+
+        エンドポイント例: https://www.train-guide.westjr.co.jp/api/v3/area_kinki_maintenance.json
+
+        :param AREAS area: [必須] 広域エリア名 (例: kinki)
+        :return AreaMaintenance:
         """
         _area = area if area else self.area
         if _area is None:
@@ -104,9 +115,14 @@ class WestJR:
 
     def get_traffic_info(self, area: str | None = None) -> TrainInfo:
         """
-        路線の交通情報を取得して返す．問題が発生しているときのみ情報が載る．
-        :param area: [必須] 広域エリア名(ex. kinki)
-        :return: dict
+        路線の交通情報を取得します。
+
+        運行に問題が発生しているときのみ情報が得られます。
+
+        エンドポイント例: https://www.train-guide.westjr.co.jp/api/v3/area_kinki_trafficinfo.json
+
+        :param AREAS area: [必須] 広域エリア名 (例: kinki)
+        :return TrafficInfo:
         """
         _area = area if area else self.area
         if _area is None:
@@ -118,8 +134,11 @@ class WestJR:
 
     def get_train_monitor_info(self) -> TrainMonitorInfo:
         """
-        列車の環境を取得して返す．
-        :return: dict
+        列車の環境(気温や混雑度など)を取得します。
+
+        エンドポイント例: https://www.train-guide.westjr.co.jp/api/v3/trainmonitorinfo.json
+
+        :return TrainMonitorInfo:
         """
         endpoint = "trainmonitorinfo"
 
@@ -127,9 +146,10 @@ class WestJR:
 
     def convert_stopTrains(self, stopTrains: list[int] | None = None) -> list[str]:
         """
-        駅一覧にある停車種別ID(int, 0~10)の配列を実際の停車種別名の配列に変換する．
-        :param stopTrains: list[int]
-        :return: list[str]
+        駅一覧にある停車種別ID(int, 0~10)の配列を実際の停車種別名の配列に変換します。
+
+        :param Stations.stations.info.stopTrains stopTrains: [必須] 停車駅に含まれる stopTrains
+        :return list[str]: 停車種別名の配列
         """
         if stopTrains is not None:
             return [STOP_TRAINS[i] for i in stopTrains]
@@ -137,11 +157,12 @@ class WestJR:
 
     def convert_pos(self, train: TrainsItem, line: str | None = None) -> tuple[str | None, str | None]:
         """
-        ID_ID を (前駅名称, 次駅名称) に変換する．
-        停車中の場合 prev_st_name に駅名が入り，next_st_name は None となる．
-        :param train: 列車オブジェクト
-        :param line: 路線ID
-        :return: (前駅名称, 次駅名称)
+        Train オブジェクトに含まれる走行位置情報を (前駅名称, 次駅名称) に変換します。
+        停車中の場合、(停車駅名称, None) を返します。
+
+        :param TrainsItem train: [必須] 列車オブジェクト
+        :param LINES line: [必須] 路線名 (例: kobesanyo)
+        :return tuple: tuple(前駅名称, 次駅名称) | tuple(停車駅名称, None)
         """
         prev_st_id, next_st_id, *_ = train.pos.split("_")
 

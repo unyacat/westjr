@@ -1,0 +1,32 @@
+name: Publish docs
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 1
+      matrix:
+        os:
+        - ubuntu-latest
+        python-version:
+        - '3.12'
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        cache: pip
+        cache-dependency-path: poetry.lock
+        python-version: ${{ matrix.python-version }}
+    - uses: abatilo/actions-poetry@v3
+    - run: poetry install --no-interaction --with docs
+    - run: poetry run portray as_html
+    - uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
