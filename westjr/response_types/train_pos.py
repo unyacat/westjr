@@ -1,7 +1,7 @@
 # [/api/v3/{LINE}.json]
 from __future__ import annotations
 
-from typing import List, Optional, Union
+from typing import List, Union
 
 from pydantic import BaseModel
 
@@ -16,15 +16,15 @@ class TrainsItem(BaseModel):
     no: str
     pos: str
     direction: int
-    nickname: Union[Optional[str], Optional[List[str]]]
+    nickname: Union[str, List[str], None]
     type: str
     displayType: str
     dest: Union[Dest, str]
-    via: Optional[str] = None
+    via: str | None = None
     delayMinutes: int
-    aSeatInfo: Optional[str] = None
-    typeChange: Optional[str] = None
-    numberOfCars: Optional[int] = None
+    aSeatInfo: str | None = None
+    typeChange: str | None = None
+    numberOfCars: int | None = None
 
 
 class TrainPos(BaseModel):
