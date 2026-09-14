@@ -1,7 +1,7 @@
 # [/api/v3/area_{AREA}_master.json]
 from __future__ import annotations
 
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Union
 
 from pydantic import BaseModel, Field
 
@@ -14,7 +14,7 @@ class Dest(BaseModel):
 class Line(BaseModel):
     name: str
     range: str
-    relatelines: Optional[List[str]] = None
+    relatelines: List[str] | None = None
     st: str
     pos: str
     index: int
