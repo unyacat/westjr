@@ -53,7 +53,7 @@ class WestJR:
         :param area: [必須] 広域エリア名(ex. kinki)
         :return: dict
         """
-        _area = area if area else self.area
+        _area = area or self.area
         if _area is None:
             msg = "Need to set the area name."
             raise ValueError(msg)
@@ -94,7 +94,7 @@ class WestJR:
         :param area: [必須] 広域エリア名(ex. kinki)
         :return: dict
         """
-        _area = area if area else self.area
+        _area = area or self.area
         if _area is None:
             msg = "Need to set the area name."
             raise ValueError(msg)
@@ -108,7 +108,7 @@ class WestJR:
         :param area: [必須] 広域エリア名(ex. kinki)
         :return: dict
         """
-        _area = area if area else self.area
+        _area = area or self.area
         if _area is None:
             msg = "Need to set the area name."
             raise ValueError(msg)
