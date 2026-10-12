@@ -8,12 +8,15 @@ requires = [
 name = "WestJR"
 version = "0.4.3"
 description = "Handling of train operation information of JR West, a railroad company in Japan"
-readme = "README.md"
-repository = "https://github.com/unyacat/westjr"
+license = "Unlicense"
 authors = [
   "unyacat <admin@unyacat.net>",
 ]
-license = "Unlicense"
+readme = "README.md"
+repository = "https://github.com/unyacat/westjr"
+keywords = [
+  "westjr",
+]
 classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
@@ -23,33 +26,26 @@ classifiers = [
 packages = [
   { include = "westjr" },
 ]
-keywords = [
-  "westjr",
-]
-
-[tool.poetry.dependencies]
-python = ">=3.7,<4"
-requests = "^2.31.0"
-types-requests = "^2.31.0"
-typing-extensions = "^4.7.1"
-pydantic = "^2.0.3"
-
-[tool.poetry.group.dev.dependencies]
-mypy = ">=0.991,<1.5"
-pre-commit = ">=2.20,<4.0"
-pytest = "^7.2.2"
+dependencies.python = ">=3.7,<4"
+dependencies.pydantic = "^2.0.3"
+dependencies.requests = "^2.31.0"
+dependencies.types-requests = "^2.31.0"
+dependencies.typing-extensions = "^4.7.1"
+group.dev.dependencies.mypy = ">=0.991,<1.5"
+group.dev.dependencies.pre-commit = ">=2.20,<4.0"
+group.dev.dependencies.pytest = "^7.2.2"
 
 [tool.black]
-line-length = 120
 target-version = [
-  'py39',
+  "py39",
 ]
+line-length = 120
 
 [tool.ruff]
 line-length = 120
-
-select = [
-  "ALL",
+allowed-confusables = [
+  "，",
+  "．",
 ]
 ignore = [
   "A003",   # Class attribute `{name}` is shadowing a Python builtin
@@ -58,17 +54,7 @@ ignore = [
   "ERA001", # Found commented-out code
   "N",      # pep8-naming
 ]
-allowed-confusables = [
-  "，",
-  "．",
-]
 mccabe.max-complexity = 10
-per-file-ignores."westjr/response_types/*.py" = [
-  "N815",  # Variable `camelCase` in class scope should not be mixedCase
-  "UP006", # Use `dict` / `list` instead of `dict` / `List` for type annotation
-  "UP007", # Use `X | Y` for type annotations
-  "UP035", # `typing.Dict` / `typing.List` is deprecated, use `dict` / `list` instead
-]
 per-file-ignores."example.py" = [
   "T201", # `print` found
 ]
@@ -76,15 +62,24 @@ per-file-ignores."tests/test_*.py" = [
   "INP001", # File tests/test_*.py is part of an implicit namespace package. Add an __init__.py.
   "S101",   # Use of assert detected
 ]
+per-file-ignores."westjr/response_types/*.py" = [
+  "N815",  # Variable `camelCase` in class scope should not be mixedCase
+  "UP006", # Use `dict` / `list` instead of `dict` / `List` for type annotation
+  "UP007", # Use `X | Y` for type annotations
+  "UP035", # `typing.Dict` / `typing.List` is deprecated, use `dict` / `list` instead
+]
+select = [
+  "ALL",
+]
 
 [tool.mypy]
-pretty = true
 python_version = "3.9"
-show_error_codes = true
 strict = true
+pretty = true
 plugins = [
   "pydantic.mypy",
 ]
+show_error_codes = true
 
 [tool]
 

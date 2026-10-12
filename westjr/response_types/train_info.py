@@ -1,14 +1,14 @@
 # [/api/v3/area_{AREA}_trafficinfo.json]
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict
 
 from pydantic import BaseModel, Field
 
 
 class Section(BaseModel):
-    from_: Optional[str] = Field(..., alias="from")
-    to: Optional[str] = None
+    from_: str | None = Field(..., alias="from")
+    to: str | None = None
 
 
 class Info_LineItem(BaseModel):
